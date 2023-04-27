@@ -8,7 +8,7 @@ class UriParser
 {
     const PATTERN = '/!=|=|<=|<|>=|>/';
 
-    const ARRAY_QUERY_PATTERN = '/(.*)\[\]/';
+    const ARRAY_QUERY_PATTERN = '/(.*)\[\]|(.*)\[\d]/';
 
     protected $request;
 
@@ -95,7 +95,7 @@ class UriParser
         // whereIn expression
         preg_match(self::ARRAY_QUERY_PATTERN, $parameter, $arrayMatches);
         if (count($arrayMatches) > 0) {
-            $this->appendQueryParameterAsWhereIn($parameter, $arrayMatches[1]);
+            $this->appendQueryParameterAsWhereIn($parameter, $arrayMatches[2] ?? $arrayMatches[1]);
             return;
         }
 
