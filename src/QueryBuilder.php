@@ -326,7 +326,11 @@ class QueryBuilder
         if (str_contains($column, '.')) {
           $this->query->orderByJoin($column, $direction);
         } else {
-          $this->query->orderBy($column, $direction);
+          if ($column == 'id') {
+              $this->query->orderBy($column, $direction);
+          } else {
+              $this->query->orderBy($column, $direction)->orderBy('id');
+          }
         }
     }
 
